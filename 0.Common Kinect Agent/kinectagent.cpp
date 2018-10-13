@@ -78,6 +78,8 @@ void KinectAgent::initDepthSensor() {
 
 cv::Mat KinectAgent::getColorImage() {
 	//Create containers
+	UINT nColorBufferSize = 0;
+	RGBQUAD* pColorBuffer = NULL;
 	IColorFrame* pColorFrame = NULL;
 	ColorImageFormat imageFormat = ColorImageFormat_None;
 
@@ -108,6 +110,8 @@ cv::Mat KinectAgent::getColorImage() {
 }
 
 cv::Mat KinectAgent::getDepthImage() {
+	UINT nDepthBufferSize = 0;
+	UINT16* pDepthBuffer = NULL;
 	IDepthFrame* pDepthFrame = NULL;
 	IFrameDescription* pFrameDescription = NULL;
 	USHORT nMinDepth = 0; //DepthMinReliableDistance

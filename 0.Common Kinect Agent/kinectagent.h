@@ -32,6 +32,27 @@ class KinectAgent {
 	cv::Mat m_cvColorMat;
 	cv::Mat m_cvDepthMat;
 
+	//Convert kinect image to OpenCV format
+	inline cv::Mat ConvertMat(const RGBQUAD* pBuffer, int nWidth, int nHeight) {
+		const RGBQUAD* pBufferEnd = pBuffer + (nWidth * nHeight);
+
+		//Create a matrix container
+		cv::Mat tmp(nHeight, nWidth, CV_8UC3);
+		uchar* pMatrixData = tmp.data;
+
+		//Copy BGR buffer data to matrix
+		while (pBuffer < pBufferEnd) {
+			*pMatrixData = pBuffer->rgbBlue;
+			pMatrixData++;
+			*pMatrixData = pBuffer->rgbGreen;
+			pMatrixData++;
+			*pMatrixData = pBuffer->rgbRed;
+			pMatrixData++;
+
+			++pBuffer;
+		}
+		return tmp;
+	}
 
 	//Release memory space
 	template<class Interface>
